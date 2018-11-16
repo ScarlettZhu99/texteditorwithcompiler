@@ -1,11 +1,9 @@
 
-/**
- *
- * @author Haiping Zhu
- */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -38,7 +36,7 @@ public class TextEditor extends JFrame {
         m2.addActionListener(new MyListener());
         m3.addActionListener(new MyListener());
         m4.addActionListener(new MyListener());
-        n1.addActionListener((ActionEvent e) -> {
+       n1.addActionListener((ActionEvent e) -> {
             try {
                 runProcessUsingRuntime();
             } catch (Exception ex) {
@@ -64,4 +62,74 @@ public class TextEditor extends JFrame {
     } 
     
  
+
+private  void ShowDIalog(){
+
+   m4.addActionListener((ActionEvent e) -> {
+       int x = JOptionPane.showConfirmDialog(null, "Do you want to save", "Not save yet", JOptionPane.YES_NO_OPTION);
+       if (x==JOptionPane.NO_OPTION) {
+System.exit(0);
+}
+    });
+   n1.addActionListener((ActionEvent e) -> {
+       int y = JOptionPane.showConfirmDialog(null, "Do you want to save", "Not save yet", JOptionPane.YES_NO_OPTION);
+       if (y==JOptionPane.NO_OPTION) {
+           
+System.exit(0);
+}
+
+    });
+  setVisible(true); 
+  
+}
+
+ 
+    
+
+
+    class MyKeyListener implements KeyListener{
+    @Override
+    public void keyTyped(KeyEvent e) {
+    
+        System.out.print(e.getKeyChar());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    
+    }
+
+    
+    @Override
+    public void keyReleased(KeyEvent e) {
+    
+    }
+        
+    }
+    class MyListener implements ActionListener{
+    
+    @Override
+    public void actionPerformed(ActionEvent e) { 
+       
+   }
+        
+    }
+    public static void runProcessUsingRuntime() throws Exception {
+        Runtime r= Runtime.getRuntime();
+        Process p = r.exec("javac test.java");
+        BufferedReader isr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        String line;
+        while ((line = isr.readLine()) != null)
+            System.out.println(line);
+        int status = p.exitValue();
+        System.out.println("Process ran with result: " + status);        
+    }
+    
+    public static void main(String[] args){
+        new TextEditor();
+       
+    }
+}
+    
+
 
